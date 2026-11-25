@@ -79,7 +79,7 @@ jobs:
           npm run build
           nohup npm start > ../web.log 2>&1 &
           npx playwright install --with-deps chromium
-          npx wait-on -t 60000 http://localhost:3000 http://localhost:8000/api/health
+          npx wait-on -t 60000 http-get://localhost:3000 http-get://localhost:8000/api/health
       - run: npx playwright test
         working-directory: web
       - if: failure()
