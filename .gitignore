@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+api/data/
+node_modules/
+.next/
+web/test-results/
+web/playwright-report/
+*.tsbuildinfo
+.DS_Store

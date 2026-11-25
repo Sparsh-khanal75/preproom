@@ -1,0 +1,85 @@
+id: university-admission
+name: University admission interview
+version: 1
+category: admission
+description: >
+  Rehearse a graduate or undergraduate admission interview: motivation, fit with the
+  programme, past projects and research interests.
+persona: >
+  You are a friendly but rigorous admissions tutor. You ask one question at a time and
+  probe for evidence of genuine interest and ability.
+session_length: 7
+max_follow_ups: 1
+min_answer_words: 35
+
+profile_fields:
+  - {id: university, label: University, entity: true}
+  - {id: programme, label: Programme, entity: true, placeholder: MSc Computer Science}
+  - {id: interests, label: Academic interests, type: textarea}
+  - {id: best_project, label: A project you are proud of, type: textarea}
+  - {id: favourite_course, label: Favourite course you have taken, entity: true}
+  - {id: professor, label: Faculty member whose work interests you, entity: true, required: false}
+  - {id: goal, label: Long-term goal, type: textarea}
+
+questions:
+  - id: motivation
+    text: Why do you want to study {programme}?
+    topic: motivation
+    expects: [interest, career, research, skills]
+    profile_fields: [programme, interests]
+    follow_ups: ["What first sparked that interest, specifically?"]
+    required: true
+  - id: why-us
+    text: Why {university} in particular?
+    topic: fit
+    expects: [faculty, research, module, lab, culture]
+    profile_fields: [university, professor]
+    follow_ups: ["Which part of our programme would you not find elsewhere?"]
+    required: true
+  - id: project
+    text: Tell me about a project you are proud of. What was your role?
+    topic: evidence of ability
+    expects: [built, role, result, challenge, team]
+    profile_fields: [best_project]
+    follow_ups: ["What was the hardest technical problem, and how did you solve it?"]
+    required: true
+  - id: favourite-course
+    text: What was your favourite course so far, and why?
+    topic: academic depth
+    expects: [course, learned, concept, grade]
+    profile_fields: [favourite_course]
+  - id: research-interest
+    text: Which research area would you like to explore here?
+    topic: research
+    expects: [area, problem, paper, method, faculty]
+    profile_fields: [interests, professor]
+    follow_ups: ["Is there a specific paper or problem in that area you find exciting?"]
+  - id: weakness
+    text: What is an academic weakness you are working on?
+    topic: self-awareness
+    expects: [weakness, improve, example, progress]
+  - id: goal
+    text: Where do you see yourself five years after graduating?
+    topic: goals
+    expects: [role, industry, research, impact]
+    profile_fields: [goal]
+  - id: contribution
+    text: What will you contribute to our student community?
+    topic: contribution
+    expects: [club, mentor, team, volunteer, skills]
+  - id: challenge
+    text: Describe a time you struggled academically and how you recovered.
+    topic: resilience
+    expects: [struggled, changed, result, learned]
+
+rubric: {consistency: 0.15, specificity: 0.30, relevance: 0.25, fluency: 0.10, language: 0.20}
+generic_answers:
+  - I am very passionate about computer science and I want to learn more about it.
+  - Your university is very prestigious and has excellent faculty and facilities.
+  - I am a hard worker and a team player who always gives my best.
+tips:
+  consistency: Keep project and course names identical to your application.
+  specificity: Back every claim with a project, result or number.
+  relevance: Tie each answer back to this programme.
+  fluency: Pause instead of filling silence with "like" or "um".
+  language: Prefer active verbs - "I built", "I measured", "I led".

@@ -1,0 +1,68 @@
+id: tech-concepts
+name: Technical interview - concepts (software and security)
+version: 1
+category: job
+description: >
+  Explain core computing and security concepts out loud, the way technical screens ask.
+  Judged on accuracy keywords, structure and clarity.
+persona: >
+  You are a senior engineer running a technical screening call. Ask one question at a
+  time and probe for depth and trade-offs.
+session_length: 6
+max_follow_ups: 1
+min_answer_words: 40
+
+profile_fields:
+  - {id: role, label: Target role, placeholder: Junior Security Engineer}
+  - {id: stack, label: Languages and tools you know, type: list}
+  - {id: project, label: A technical project you built, type: textarea}
+
+questions:
+  - id: tls
+    text: Explain what happens during a TLS handshake.
+    topic: networking and crypto
+    expects: [client hello, server hello, certificate, key exchange, symmetric, session key, cipher]
+    follow_ups: ["Why does TLS switch to symmetric encryption after the handshake?"]
+  - id: dns
+    text: What happens when you type a URL into a browser and press enter?
+    topic: networking
+    expects: [dns, resolver, tcp, tls, http, request, response, render]
+  - id: sql-injection
+    text: What is SQL injection and how do you prevent it?
+    topic: web security
+    expects: [input, query, parameterized, prepared, orm, validation, least privilege]
+    follow_ups: ["Why are parameterised queries safer than escaping input?"]
+  - id: hashing
+    text: What is the difference between hashing and encryption? When would you use each?
+    topic: cryptography
+    expects: [one-way, reversible, key, password, salt, integrity, confidentiality]
+  - id: project-deep-dive
+    text: Walk me through the architecture of a technical project you built.
+    topic: system design
+    expects: [component, database, api, trade-off, scale]
+    profile_fields: [project]
+    follow_ups: ["What would break first if traffic grew ten times?"]
+    required: true
+  - id: incident
+    text: An alert says a server is making outbound connections to an unknown IP at 3 a.m. What do you do?
+    topic: incident response
+    expects: [triage, logs, process, isolate, scope, ioc, escalate, contain]
+    follow_ups: ["How would you decide whether to isolate the host immediately?"]
+  - id: rest
+    text: Explain the difference between authentication and authorization.
+    topic: access control
+    expects: [identity, permission, role, token, session]
+  - id: big-o
+    text: How would you find duplicate entries in a list of ten million email addresses?
+    topic: algorithms
+    expects: [hash set, sort, memory, complexity, stream]
+
+rubric: {consistency: 0.05, specificity: 0.30, relevance: 0.35, fluency: 0.10, language: 0.20}
+generic_answers:
+  - It is a very important concept in computer science that is used everywhere.
+tips:
+  specificity: Name the exact mechanism (for example "ECDHE key exchange"), not just the idea.
+  relevance: Structure answers - definition, how it works, an example, a trade-off.
+  fluency: Think for two seconds before answering; silence is fine.
+  language: Define acronyms the first time you use them.
+  consistency: Describe your project the same way it appears on your CV.

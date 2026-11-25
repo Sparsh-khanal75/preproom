@@ -1,0 +1,81 @@
+id: job-behavioral
+name: Job interview - behavioural (STAR)
+version: 1
+category: job
+description: >
+  Practise behavioural questions for any role. Answers are judged on the STAR structure:
+  Situation, Task, Action, Result.
+persona: >
+  You are an experienced hiring manager running a structured behavioural interview.
+  You ask one question at a time and probe for the candidate's own actions and results.
+session_length: 7
+max_follow_ups: 1
+min_answer_words: 40
+
+profile_fields:
+  - {id: role, label: Role you are applying for, placeholder: SOC Analyst}
+  - {id: company, label: Company, entity: true}
+  - {id: experience, label: Most relevant experience, type: textarea}
+  - {id: achievement, label: Achievement you are proud of (with a number if possible), type: textarea}
+  - {id: skills, label: Top skills, type: list}
+
+questions:
+  - id: tell-me
+    text: Tell me about yourself and why you are interested in the {role} role.
+    topic: introduction
+    expects: [experience, skills, role, interest]
+    profile_fields: [role, experience]
+    required: true
+  - id: why-company
+    text: Why do you want to work at {company}?
+    topic: motivation
+    expects: [product, mission, team, culture, growth]
+    profile_fields: [company]
+    follow_ups: ["What have you learned about {company} that others might not know?"]
+    required: true
+  - id: conflict
+    text: Tell me about a time you disagreed with a teammate. What did you do?
+    topic: teamwork
+    expects: [situation, disagreed, listened, action, result]
+    follow_ups: ["What was the outcome, and what would you do differently?"]
+  - id: failure
+    text: Describe a mistake you made at work or in a project and how you handled it.
+    topic: ownership
+    expects: [mistake, owned, fixed, learned, result]
+    follow_ups: ["What did you change afterwards so it would not happen again?"]
+  - id: achievement
+    text: What is the achievement you are most proud of?
+    topic: impact
+    expects: [result, measured, percent, improved, led]
+    profile_fields: [achievement]
+    follow_up_if: [short, no_specifics, contradiction]
+    follow_ups: ["How did you measure the impact?"]
+    required: true
+  - id: pressure
+    text: Tell me about a time you had to deliver under a tight deadline.
+    topic: pressure
+    expects: [deadline, prioritised, delivered, result]
+  - id: learning
+    text: Tell me about something you had to learn quickly.
+    topic: learning agility
+    expects: [learned, resources, applied, result]
+  - id: leadership
+    text: Describe a time you led without formal authority.
+    topic: leadership
+    expects: [initiative, influenced, team, result]
+  - id: feedback
+    text: Tell me about difficult feedback you received and what you did with it.
+    topic: growth
+    expects: [feedback, changed, improved]
+
+rubric: {consistency: 0.10, specificity: 0.30, relevance: 0.25, fluency: 0.15, language: 0.20}
+generic_answers:
+  - I am a hard-working team player and I always give one hundred percent.
+  - My biggest weakness is that I am a perfectionist.
+  - I want to work for your company because it is a leading company in the industry.
+tips:
+  consistency: Use the same numbers you put on your CV.
+  specificity: Every story needs a measurable result - a number, a time saved, a rating.
+  relevance: Use STAR - Situation, Task, Action, Result - in that order.
+  fluency: Keep answers to about 90 seconds.
+  language: Say "I", not "we", when describing your own actions.

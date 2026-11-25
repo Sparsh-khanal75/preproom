@@ -1,0 +1,131 @@
+id: student-visa-credibility
+name: Student visa credibility interview
+version: 1
+category: visa
+description: >
+  Practise the credibility or pre-arrival interview that student-visa applicants and
+  universities run to check you are a genuine student. Works for the UK, Canada,
+  Australia, the US and others: fill in your own course details.
+persona: >
+  You are a courteous but probing visa interviewer. You ask one question at a time,
+  in plain English, and you push for specific, personal answers. You never give
+  advice or opinions during the interview.
+session_length: 8
+max_follow_ups: 1
+min_answer_words: 30
+
+profile_fields:
+  - {id: country, label: Destination country, placeholder: United Kingdom}
+  - {id: university, label: University, entity: true, placeholder: University of Example}
+  - {id: course, label: Course title, entity: true, placeholder: MSc Cyber Security}
+  - {id: city, label: City of study, entity: true}
+  - {id: start_date, label: Course start date, placeholder: September 2026}
+  - {id: modules, label: Two or three modules you are looking forward to, type: list, help: One per line}
+  - {id: previous_study, label: Previous degree and grade, type: textarea}
+  - {id: tuition_fee, label: Tuition fee for the first year (number), type: number}
+  - {id: funding_source, label: Who is paying and how, type: textarea}
+  - {id: career_plan, label: Career plan after the course, type: textarea}
+  - {id: home_ties, label: Ties to your home country, type: textarea, required: false}
+  - {id: gap_explanation, label: Gaps in study or work and why, type: textarea, required: false}
+
+questions:
+  - id: why-course
+    text: Why have you chosen to study {course}?
+    topic: course choice
+    expects: [module, career, interest, skills, previous]
+    profile_fields: [course, modules, previous_study]
+    follow_up_if: [short, no_specifics]
+    follow_ups: ["Which modules in the course are most relevant to you, and why?"]
+    required: true
+  - id: why-university
+    text: Why {university} and not a university in your own country?
+    topic: university choice
+    expects: [ranking, facilities, module, research, industry, compare, home]
+    profile_fields: [university, city]
+    follow_up_if: [short, no_specifics]
+    follow_ups: ["What did you compare {university} with before deciding?"]
+    required: true
+  - id: modules
+    text: Tell me about two modules on your course and what you expect to learn.
+    topic: course knowledge
+    expects: [module, learn, project, assessment]
+    profile_fields: [modules, course]
+    follow_up_if: [short, no_specifics, contradiction]
+    follow_ups: ["How will that module help in your career plan?"]
+  - id: funding
+    text: How are you going to pay your tuition fees and living costs?
+    topic: finances
+    expects: [fee, savings, loan, sponsor, parents, living, cost]
+    profile_fields: [funding_source, tuition_fee]
+    follow_up_if: [short, no_specifics, contradiction]
+    follow_ups: ["What exactly is the tuition fee, and how much of it have you already paid?"]
+    required: true
+  - id: career-plan
+    text: What do you plan to do after you finish the course?
+    topic: career plan
+    expects: [job, role, company, return, salary, industry]
+    profile_fields: [career_plan]
+    follow_up_if: [short, no_specifics]
+    follow_ups: ["Which companies or roles are you targeting, and why will this degree help?"]
+    required: true
+  - id: previous-study
+    text: How does this course connect to what you studied before?
+    topic: academic progression
+    expects: [degree, grade, subject, project, progression]
+    profile_fields: [previous_study, course]
+    follow_up_if: [short, no_specifics]
+    follow_ups: ["Is this a progression from your previous degree, or a change of field? Why?"]
+  - id: city-living
+    text: What do you know about {city} and how will you live there?
+    topic: practical preparation
+    expects: [accommodation, rent, cost, transport, part-time]
+    profile_fields: [city]
+    follow_up_if: [short]
+    follow_ups: ["Where will you stay, and roughly how much will it cost each month?"]
+  - id: start-date
+    text: When does your course start, and how long is it?
+    topic: course facts
+    expects: [month, year, duration]
+    profile_fields: [start_date]
+    follow_up_if: [short, contradiction]
+  - id: gaps
+    text: Can you explain any gaps in your study or work history?
+    topic: gaps
+    expects: [year, worked, reason]
+    profile_fields: [gap_explanation]
+    follow_up_if: [short, no_specifics]
+    follow_ups: ["What did you do during that period, and what did you learn from it?"]
+  - id: home-ties
+    text: What will bring you back home after your studies?
+    topic: intentions
+    expects: [family, job, business, property, return]
+    profile_fields: [home_ties, career_plan]
+    follow_up_if: [short, no_specifics]
+  - id: alternatives
+    text: Which other universities did you apply to, and why did you choose this one?
+    topic: decision making
+    expects: [applied, offer, compared, ranking, fee]
+    profile_fields: [university]
+    follow_up_if: [short, no_specifics]
+  - id: research
+    text: How did you research the course before applying?
+    topic: preparation
+    expects: [website, alumni, open day, webinar, module, ranking]
+    profile_fields: [course, university]
+    follow_up_if: [short, no_specifics]
+
+rubric: {consistency: 0.30, specificity: 0.25, relevance: 0.20, fluency: 0.10, language: 0.15}
+
+generic_answers:
+  - I have always been passionate about this field since my childhood and this course will help me achieve my dreams.
+  - The university is one of the best universities in the world with world-class facilities and a multicultural environment.
+  - The country has a very good education system and the degree is recognised all over the world.
+  - After my studies I will go back to my country and get a good job in a reputed company.
+  - My parents will sponsor my studies as they have enough funds.
+
+tips:
+  consistency: Make sure names, numbers and dates match the documents you submitted, word for word.
+  specificity: Name at least one module, number or concrete example in every answer.
+  relevance: Answer the exact question first, in your first sentence, then add detail.
+  fluency: Aim for 110 to 160 words per minute and replace "um" with a short pause.
+  language: Use short, complete sentences; avoid memorised phrases you would not normally say.

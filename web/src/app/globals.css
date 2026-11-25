@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "@fontsource-variable/newsreader";
+@import "@fontsource-variable/newsreader/wght-italic.css";
+@import "@fontsource-variable/public-sans";
+
+/* PrepRoom tokens: the serif is the spoken word, the sans is the interface. */
+@theme {
+  --color-paper: #f5f6f8;
+  --color-sheet: #ffffff;
+  --color-ink: #18212f;
+  --color-muted: #687083;
+  --color-line: #dfe2e8;
+  --color-interviewer: #3b4bc8;
+  --color-interviewer-soft: #e8eafb;
+  --color-candidate: #0f7a63;
+  --color-candidate-soft: #e3f3ee;
+  --color-flag: #b45309;
+  --color-flag-soft: #fcefe2;
+  --color-danger: #b42318;
+
+  --font-sans: "Public Sans Variable", system-ui, sans-serif;
+  --font-voice: "Newsreader Variable", Georgia, serif;
+
+  --text-question: 1.75rem;
+  --text-question--line-height: 1.25;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-interviewer-soft);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-interviewer);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* The marked-up transcript: underlines rather than boxes, so the answer still reads as speech */
+.mark {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  cursor: help;
+}
+.mark-detail {
+  text-decoration-color: var(--color-candidate);
+}
+.mark-contradiction {
+  text-decoration-color: var(--color-flag);
+  background: var(--color-flag-soft);
+}
+.mark-generic {
+  text-decoration-style: wavy;
+  text-decoration-color: var(--color-flag);
+}
+.mark-language {
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-interviewer);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

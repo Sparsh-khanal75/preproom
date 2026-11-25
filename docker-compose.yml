@@ -1,0 +1,61 @@
+name: preproom
+
+x-api-env: &api-env
+  DATABASE_URL: postgresql+asyncpg://preproom:${POSTGRES_PASSWORD:-preproom}@db:5432/preproom
+  JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+  LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+  OLLAMA_URL: http://ollama:11434
+  OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:7b}
+  OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.groq.com/openai/v1}
+  OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+  OPENAI_MODEL: ${OPENAI_MODEL:-llama-3.1-8b-instant}
+  STT_PROVIDER: ${STT_PROVIDER:-whisper}
+  WHISPER_MODEL: ${WHISPER_MODEL:-small}
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: preproom
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-preproom}
+      POSTGRES_DB: preproom
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U preproom"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: ./api
+    environment: *api-env
+    volumes: [appdata:/app/data]
+    depends_on:
+      db: { condition: service_healthy }
+    ports: ["8000:8000"]
+
+  worker:
+    build: ./api
+    command: ["python", "-m", "app.jobs.worker"]
+    healthcheck: { disable: true }
+    environment: *api-env
+    volumes: [appdata:/app/data]
+    depends_on:
+      api: { condition: service_healthy }
+
+  web:
+    build:
+      context: ./web
+      args: { API_URL: http://api:8000 }
+    ports: ["3000:3000"]
+    depends_on: [api]
+
+  # Free local LLM. Skip it with LLM_PROVIDER=openai_compatible or mock.
+  ollama:
+    image: ollama/ollama:latest
+    volumes: [ollama:/root/.ollama]
+    profiles: [ollama]
+
+volumes:
+  pgdata:
+  appdata:
+  ollama:
