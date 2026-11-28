@@ -11,6 +11,19 @@
 |---|---|
 | ![Interview room with a follow-up question](docs/screenshots/followup.png) | ![Report with highlighted transcript](docs/screenshots/report.png) |
 
+<details>
+<summary>More screenshots (landing page, dashboard, interview room, mobile report)</summary>
+
+| Landing page | Dashboard |
+|---|---|
+| ![Landing page](docs/screenshots/landing.png) | ![Dashboard with past sessions](docs/screenshots/dashboard.png) |
+
+| Interview room | Report on mobile |
+|---|---|
+| ![Interview room](docs/screenshots/room.png) | <img src="docs/screenshots/report-mobile.png" alt="Report on a phone" width="260"> |
+
+</details>
+
 ## Why
 
 Interview practice tools are either generic chatbots that praise everything, or paid coaching. Candidates for visa, university and job interviews need something in between: an interviewer that presses on vague answers, notices when they say a different number from the one on their documents, and tells them what to fix next time.
